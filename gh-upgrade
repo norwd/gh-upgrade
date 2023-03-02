@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+
+set -e
+
+bold() {
+	if [ -x "$(command -v tput)" ]
+	then
+		tput bold
+	fi
+
+	echo "$@"
+
+	if [ -x "$(command -v tput)" ]
+	then
+		tput sgr0
+	fi
+}
+
+usage() {
+	echo "Upgrade gh to the latest version"
+	echo ""
+	bold "USAGE"
+	echo "  gh upgrade"
+	echo ""
+	bold "FLAGS"
+	echo "  -h, --help:    Show help for command"
+	echo ""
+}
+
+err() {
+	if [ "${GITHUB_ACTIONS}" ]
+	then
+		echo "::error::$@"
+	else
+		echo "$@" 1>&2
+	fi
+}
+
+die() {
+	err "$@"
+	exit 1
+}
+
+main() {
+	if [ "$#" -gt 0 ]
+	then
+		case "$1" in
+			-h | --help ) usage status ; exit 0      ;;
+			-*          ) die "unknown option '$1'"  ;;
+			*           ) die "unknown command '$1'" ;;
+		esac
+	elif [ -x "$(command -v brew)"   ]; then brew upgrade gh
+	elif [ -x "$(command -v port)"   ]; then sudo port selfupdate && sudo port upgrade gh
+	elif [ -x "$(command -v winget)" ]; then winget upgrade --id GitHub.cli
+	elif [ -x "$(command -v scoop)"  ]; then scoop update gh
+	elif [ -x "$(command -v choco)"  ]; then choco upgrade gh
+	elif [ -x "$(command -v conda)"  ]; then conda update gh --channel conda-forge
+	elif [ -x "$(command -v spack)"  ]; then spack uninstall gh && spack install gh
+	elif [ -x "$(command -v apt)"    ]; then sudo apt update && sudo apt install gh
+	elif [ -x "$(command -v dnf)"    ]; then sudo dnf update gh
+	elif [ -x "$(command -v yum)"    ]; then sudo yum update gh
+	elif [ -x "$(command -v pacman)" ]; then sudo pacman -S github-cli 
+	else die "Could not detect package manager. Please open an issue at https://github.com/norwd/gh-upgrade/issues/new/choose"
+	fi
+}
+
+main $@
