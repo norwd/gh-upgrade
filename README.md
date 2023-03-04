@@ -16,7 +16,7 @@ To upgrade `gh-upgrade` run the following command:
 gh extension upgrade norwd/gh-upgrade
 ```
 
-To uninstall `gh-home` run the following command:
+To uninstall `gh-upgrade` run the following command:
 
 ```sh
 gh extension remove norwd/gh-upgrade
