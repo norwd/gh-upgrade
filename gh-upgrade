@@ -45,7 +45,7 @@ main() {
 	if [ "$#" -gt 0 ]
 	then
 		case "$1" in
-			-h | --help ) usage status ; exit 0      ;;
+			-h | --help ) usage ; exit 0             ;;
 			-*          ) die "unknown option '$1'"  ;;
 			*           ) die "unknown command '$1'" ;;
 		esac
