@@ -2,7 +2,7 @@
 
 :octocat: A GitHub CLI extension to upgrade `gh` itself
 
-<img src="https://humanmademark.com/automatic-logo.svg" height="50" />
+<img src="/../../../../norwd/human/blob/main/docs/automatic-logo.svg" height="50" />
 
 ## Installation
 
