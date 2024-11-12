@@ -62,6 +62,8 @@ main() {
 	elif [ -x "$(command -v pacman)" ]; then sudo pacman -S github-cli 
 	else die "Could not detect package manager. Please open an issue at https://github.com/norwd/gh-upgrade/issues/new/choose"
 	fi
+
+	gh version
 }
 
 main $@
